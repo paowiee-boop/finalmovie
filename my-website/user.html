@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Dashboard</title>
+<style>
+body{
+  font-family:Arial;
+  background:#0f172a;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.card{
+  background:#111827;
+  padding:25px;
+  border-radius:15px;
+  width:320px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid #374151;
+  background:#020617;
+  color:white;
+}
+button{
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  margin-top:8px;
+  cursor:pointer;
+  width:100%;
+}
+.update{background:#3b82f6;color:white;}
+.delete{background:#ef4444;color:white;}
+.logout{background:#22c55e;color:white;}
+.status{margin-top:10px;font-weight:bold;}
+</style>
+</head>
+<body>
+
+<div class="card">
+<h2 id="welcome"></h2>
+
+<h3>Change Password</h3>
+<input type="password" id="newPass" placeholder="New Password">
+<button class="update" onclick="updateAccount()">Update Account</button>
+
+<h3>Delete Account</h3>
+<button class="delete" onclick="deleteAccount()">Delete Account</button>
+
+<hr>
+<button class="logout" onclick="logout()">Logout</button>
+
+<div class="status" id="status"></div>
+</div>
+
+<script>
+const user = localStorage.getItem('currentUser');
+const users = JSON.parse(localStorage.getItem('users')||'{}');
+
+// block access if not logged in
+if(!user){
+    window.location.href='index.html';
+}
+
+document.getElementById('welcome').innerText = "Welcome, " + user;
+
+// UPDATE PASSWORD
+function updateAccount(){
+    const pass = document.getElementById('newPass').value.trim();
+    if(!pass){
+        status.innerText="Enter a new password.";
+        return;
+    }
+    users[user].password = pass;
+    localStorage.setItem('users',JSON.stringify(users));
+    status.innerText="Password updated successfully!";
+    newPass.value="";
+}
+
+// DELETE ACCOUNT
+function deleteAccount(){
+    if(!confirm("Are you sure you want to delete your account?")) return;
+
+    delete users[user];
+    localStorage.setItem('users',JSON.stringify(users));
+    localStorage.removeItem('currentUser');
+    alert("Account deleted.");
+    window.location.href="index.html";
+}
+
+// LOGOUT
+function logout(){
+    localStorage.removeItem('currentUser');
+    window.location.href="index.html";
+}
+</script>
+
+</body>
+</html>

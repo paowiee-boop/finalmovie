@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login + Create Account</title>
+  <style>
+    :root{--bg:#0f172a;--card:#111827;--accent:#22c55e;--accent2:#60a5fa;--text:#e5e7eb;--muted:#9ca3af}
+    *{box-sizing:border-box;font-family:system-ui,Segoe UI,Arial}
+    body{margin:0;background:linear-gradient(135deg,#0b1024,#111827);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center}
+    .card{width:360px;background:#111827;padding:22px;border-radius:16px;box-shadow:0 10px 35px rgba(0,0,0,.4)}
+    h2{margin:0 0 10px}
+    label{display:block;margin-top:12px;font-size:.9rem}
+    input{width:100%;padding:10px;border-radius:10px;border:1px solid #374151;background:#020617;color:#e5e7eb;margin-top:6px}
+    button{width:100%;padding:10px;border:none;border-radius:12px;color:white;cursor:pointer;margin-top:14px}
+    .primary{background:var(--accent)}
+    .secondary{background:var(--accent2)}
+    .tabs{display:flex;gap:6px;margin-bottom:12px}
+    .tab{flex:1;text-align:center;padding:8px;border-radius:10px;background:#020617;cursor:pointer}
+    .active{background:#60a5fa}
+    .hidden{display:none}
+    .status{margin-top:10px;font-weight:600;color:#9ca3af}
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="tabs">
+    <div class="tab active" id="tabLogin">Login</div>
+    <div class="tab" id="tabRegister">Create</div>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="loginPanel">
+    <h2>Login</h2>
+    <label>Username</label>
+    <input id="loginUser" />
+    <label>Password</label>
+    <input type="password" id="loginPass" />
+    <button class="primary" type="button" id="loginBtn">Login</button>
+    <div id="loginStatus" class="status"></div>
+  </div>
+
+  <!-- REGISTER -->
+  <div id="registerPanel" class="hidden">
+    <h2>Create Account</h2>
+    <label>Username</label>
+    <input id="regUser" />
+    <label>Password</label>
+    <input type="password" id="regPass" />
+    <button class="secondary" type="button" id="createBtn">Create Account</button>
+    <div id="regStatus" class="status"></div>
+  </div>
+</div>
+
+<script>
+// ---------- STORAGE ----------
+function getUsers(){
+  try{ return JSON.parse(localStorage.getItem('users')||'{}'); }
+  catch(e){ return {}; }
+}
+function saveUsers(u){ localStorage.setItem('users',JSON.stringify(u)); }
+
+// ---------- TABS ----------
+const tabLogin=document.getElementById('tabLogin');
+const tabRegister=document.getElementById('tabRegister');
+const loginPanel=document.getElementById('loginPanel');
+const registerPanel=document.getElementById('registerPanel');
+
+tabLogin.onclick=()=>{
+  tabLogin.classList.add('active');
+  tabRegister.classList.remove('active');
+  loginPanel.classList.remove('hidden');
+  registerPanel.classList.add('hidden');
+};
+
+tabRegister.onclick=()=>{
+  tabRegister.classList.add('active');
+  tabLogin.classList.remove('active');
+  registerPanel.classList.remove('hidden');
+  loginPanel.classList.add('hidden');
+};
+
+// ---------- CREATE ACCOUNT ----------
+document.getElementById('createBtn').addEventListener('click',()=>{
+  const user=document.getElementById('regUser').value.trim();
+  const pass=document.getElementById('regPass').value.trim();
+  const status=document.getElementById('regStatus');
+  const users=getUsers();
+
+  if(!user||!pass){ status.textContent='Fill in all fields.'; return; }
+  if(users[user]){ status.textContent='Username already exists.'; return; }
+
+  users[user]={password:pass};
+  saveUsers(users);
+  status.textContent='Account created! You may now login.';
+  document.getElementById('regUser').value='';
+  document.getElementById('regPass').value='';
+});
+
+// ---------- LOGIN ----------
+document.getElementById('loginBtn').addEventListener('click',()=>{
+  const user=document.getElementById('loginUser').value.trim();
+  const pass=document.getElementById('loginPass').value.trim();
+  const status=document.getElementById('loginStatus');
+  const users=getUsers();
+
+  if(!users[user]||users[user].password!==pass){
+    status.textContent='Invalid username or password.';
+    return;
+  }
+
+  localStorage.setItem('currentUser',user);
+  status.textContent='Login success...';
+  setTimeout(()=>window.location.href='https://groupymovies.pages.dev/',600);
+});
+
+// auto redirect if already logged in
+if(localStorage.getItem('currentUser')){
+  window.location.href='https://groupymovies.pages.dev/';
+}
+</script>
+
+</body>
+</html>

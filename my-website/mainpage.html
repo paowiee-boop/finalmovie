@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Free Movies For You </title>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="preload" href="css/home.css" as="style">
+  <link rel="preload" href="js/home.js" as="script">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script defer src="js/home.js"></script>
+
+  <script type="text/javascript" data-cfasync="false">
+/*<![CDATA[/* */
+(function(){var f=window,b="c21091ff1831bb6fdb852783a76519c6",d=[["siteId",503*362-898+332+170+5094097],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],t=["d3d3LmNkbjRhZHMuY29tL0ZjL1lQL2Rsb3phZC5taW4uanM=","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvYWZsb2F0aW5nLmpz"],p=-1,c,h,a=function(){clearTimeout(h);p++;if(t[p]&&!(1796668415000<(new Date).getTime()&&1<p)){c=f.document.createElement("script");c.type="text/javascript";c.async=!0;var j=f.document.getElementsByTagName("script")[0];c.src="https://"+atob(t[p]);c.crossOrigin="anonymous";c.onerror=a;c.onload=function(){clearTimeout(h);f[b.slice(0,16)+b.slice(0,16)]||a()};h=setTimeout(a,5E3);j.parentNode.insertBefore(c,j)}};if(!f[b]){try{Object.freeze(f[b]=d)}catch(e){}a()}})();
+/*]]>/* */
+</script>
+
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <input type="text" class="search-bar" placeholder="Search..." onfocus="openSearchModal()" />
+    </div>
+  </div>
+
+  <div class="banner" id="banner">
+    <h1 id="banner-title"></h1>
+  </div>
+
+  <div class="row">
+    <h2>Trending Movies</h2>
+    <div class="list" id="movies-list"></div>
+  </div>
+
+  <div class="row">
+    <h2>Trending TV Shows</h2>
+    <div class="list" id="tvshows-list"></div>
+  </div>
+
+  <div class="row">
+    <h2>Trending Anime</h2>
+    <div class="list" id="anime-list"></div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()" style="color: red;">&times;</span>
+      <div class="modal-body">
+  <img id="modal-image" src="" alt="" />
+  <div class="modal-text">
+    <h2 id="modal-title"></h2>
+    <div class="stars" id="modal-rating"></div>
+    <p id="modal-description"></p>
+  </div>
+</div>
+      
+      <div class="server-selector">
+        <label for="server">Change Server:</label>
+        <select id="server" onchange="changeServer()">
+          <option value="vidsrc.cc">Daphne</option>
+          <option value="vidsrc.me">Babelyn</option>
+          <option value="player.videasy.net">Monica</option>
+        </select>
+      </div>
+      <iframe id="modal-video" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="search-modal" id="search-modal">
+    <span class="close" onclick="closeSearchModal()" style="color: red;">&times;</span>
+    <input type="text" id="search-input" placeholder="Search for a movie or show..." oninput="searchTMDB()" />
+    <div class="results" id="search-results"></div>
+  </div>
+
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2026 Group 5's Website. All rights reserved.</p>
+
+    <div class="footer-links">
+      <button id="contactBtn" class="contact-btn">Contact Us</button>
+    </div>
+  </div>
+</footer>
+
+<!-- Contact Popup -->
+<div id="contactPopup" class="contact-popup">
+  <div class="popup-box">
+    <button id="closePopup" class="close-btn">✖</button>
+
+    <a href="https://facebook.com" target="_blank" title="Facebook">📘</a>
+    <a href="https://instagram.com" target="_blank" title="Instagram">📸</a>
+    <a href="https://discord.com" target="_blank" title="Discord">🎮</a>
+  </div>
+</div>
+
+<!-- Link JS file -->
+<script src="js/home.js"></script>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
